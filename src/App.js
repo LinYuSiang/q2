@@ -1,27 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState, useEffect, useRef } from 'react'
+import React, {Suspense, lazy, useEffect } from 'react';
+import {BrowserRouter as Router, Route, Switch,useHistory,Link } from 'react-router-dom';
+// const Home = lazy(() => import('./routes/Home'));
+const Register = lazy(() => import('./view/register/Register'));
+const Login = lazy(() => import('./view/login/Login'));
+const Home = lazy(() => import('./view/home/Home'));
+const App = () => {
 
-function App() {
-  useEffect(()=>{
-    fetch('/api/authentication')
-  },[])
+  const history = useHistory();
+  console.log(history)
+  useEffect(() => {
+
+    history.push('./register')
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            {/*<Route exact path="/" component={Home}/>*/}
+            <Route
+              path="/register"
+              component={Register}
+            />
+            <Route
+              path="/login"
+              component={Login}
+            />
+            <Route
+              path="/home"
+              component={Home}
+            />
+          </Switch>
+        </Suspense>
+      </Router>
     </div>
   );
 }

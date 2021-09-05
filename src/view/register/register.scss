@@ -1,0 +1,70 @@
+.register{
+  width: 50vw;
+  height: 50vh;
+  background-color: white;
+  border: 1px solid black;
+  margin: auto;
+  .title{
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span{
+      font-size: 40px;
+      font-weight: 500;
+
+    }
+  }
+  .body{
+    padding: 10px;
+    width: 100%;
+
+    .error-word{
+      color: red;
+      margin-bottom: 7px;
+    }
+    .items{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 96%;
+      position: relative;
+      .dot{
+        color: red;
+      }
+      input{
+        height: 50%;
+        margin-left: 10px;
+        flex: 1;
+      }
+      div{
+        position: absolute;
+        right: 1vw;
+        line-height: 1;
+      }
+    }
+    .button{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button{
+        //border: 1px solid black;
+        padding: 3px 15px ;
+        border-radius: 7px;
+      }
+      .register-botton{
+        background-color: dodgerblue;
+        color: white;
+        margin-right: 15px;
+
+      }
+      .register-goback{
+        background-color: red;
+        color: white;
+        margin-right: 15px;
+      }
+    }
+  }
+}
