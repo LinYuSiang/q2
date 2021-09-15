@@ -12,7 +12,7 @@ const App = () => {
   console.log(history)
   useEffect(() => {
 
-    history.push('./register')
+    history.push('./login')
   }, [])
   return (
     <div className="App">

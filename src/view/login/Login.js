@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
-// import './register.scss'/
+import './login.scss'
 import { useHistory } from 'react-router-dom';
-const Login = () => {
+import axios from "axios";
+import Store from '../../localStrage/Store'
 
+const Login = () => {
   const history = useHistory()
   var sta = true
   const [param, setParam] = useState({'username':'','password':''})
@@ -23,19 +25,16 @@ const Login = () => {
     })
   }
 
-  const confirmSubmit = async () =>{  //登入
-      const aaa = await fetch('/api/login', {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(param), // data can be `string` or {object}!
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        })
-      }).then(((res)=>{
-        console.log(res, 8888)
-        if (res.status === 200)
-          history.push('./home')
-      }))
-    console.log(aaa);
+  const confirmSubmit =  () =>{  //登入
+    axios.post('https://l8-upgrade-apis.vercel.app/api/login', {
+      username: param.username,
+      password: param.password
+    }).then((res)=>{
+      console.log(res)
+      Store.addStorage("token", res.data.token) //localStorage 集中管理
+      if (res.status === 200)
+        history.push('./home')
+    })
   }
 
   const changeText = () =>{  //隱碼轉換
@@ -48,7 +47,7 @@ const Login = () => {
     }
   }
   return (
-    <div className='register'>
+    <div className='login'>
       <div className='title'>
         <span>登入</span>
       </div>

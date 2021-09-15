@@ -6,13 +6,20 @@ const Register = () => {
   const history = useHistory()
   var pwdSta = true
   var confirmSta = true
-  const [param, setParam] = useState({'username': '', 'password': ''})
+  const [param, setParam] = useState({'username': '', 'password': '',"name":''})
   const [psd, setPsd] = useState('')
   const [errorWord, setErrorWord] = useState('')
   const dot = <span className='dot'>*</span>
 
 
   const userName = (val) => { //帳號
+    console.log(val.target.value)
+    setParam({
+      ...param,
+      'username': val.target.value,
+    })
+  }
+  const Name = (val) => { //帳號
     console.log(val.target.value)
     setParam({
       ...param,
@@ -34,25 +41,25 @@ const Register = () => {
     const email = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     const pwd = /[a-zA-Z]{1,}\d*[a-zA-Z]{1,}/
     const patten = param.password.length < 4 || param.password.length > 9
-    if (!email.test(param.username)){
+    if (!email.test(param.username)) {
       return setErrorWord("必須是信箱")
     }
-    if ( patten || !pwd.test(param.password) ){
+    if (patten || !pwd.test(param.password)) {
       return setErrorWord("4-8字元；首尾必須是英文；中間必須是數字")
     }
-    if ( patten || !pwd.test(psd) ){
+    if (patten || !pwd.test(psd)) {
       return setErrorWord("4-8字元；首尾必須是英文；中間必須是數字")
     }
 
     if (param.password === psd && psd !== undefined) {
-      await fetch('/api/register', {
+      await fetch('https://l8-upgrade-apis.vercel.app/api/register', {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(param), // data can be `string` or {object}!
         headers: new Headers({
           'Content-Type': 'application/json'
         })
-      }).then((res)=>{
-        if (res.status){
+      }).then((res) => {
+        if (res.status) {
           history.push('./login')
         }
       })
@@ -92,13 +99,26 @@ const Register = () => {
           <p>{dot}帳號:</p>
           <input
             placeholder={"必須是信箱"}
-            onChange={val => {userName(val)}}/>
+            onChange={val => {
+              userName(val)
+            }}/>
         </div>
+
+          <div className='items'>
+            <p> 使用者名稱:</p>
+            <input
+              placeholder={"對其他用戶顯示"}
+              onChange={val => {
+                Name(val)
+              }}/>
+          </div>
 
         <div className='items'>
           <p>{dot}密碼:</p>
           <input
-            onChange={val => {passWord(val)}}
+            onChange={val => {
+              passWord(val)
+            }}
             id='pwd'
             placeholder={"4-8字元；首尾必須是英文；中間必須是數字"}
           />
@@ -111,7 +131,9 @@ const Register = () => {
         <div className='items'>
           <p>{dot}確認密碼:</p>
           <input
-            onChange={val => {confirmPassWord(val)}}
+            onChange={val => {
+              confirmPassWord(val)
+            }}
             id='confirmPwd'
             placeholder={"4-8字元；首尾必須是英文；中間必須是數字"}
           />

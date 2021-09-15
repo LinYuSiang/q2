@@ -1,12 +1,23 @@
 .home{
   .header{
-    height: 9vw;
+    height: 9vh;
     width: 100%;
-    border-bottom: 1px solid;
+    border-bottom: 2px solid;
     position: relative;
+    display: flex;
+    align-items: center;
     h1{
       left: 23px;
       position: absolute;
     }
+    .user{
+      position: absolute;
+      right: 50px;
+    }
+  }
+  .sideBar{
+    width: 20vw;
+    height:100vh;
+    border-right: 2px solid;
   }
 }
